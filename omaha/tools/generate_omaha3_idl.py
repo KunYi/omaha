@@ -103,9 +103,9 @@ def _Main():
 
   # make sure we have work to do
   if not idl_template_filename:
-    raise StandardError("no idl_template_filename specified")
+    raise Exception("no idl_template_filename specified")
   if not idl_output_filename:
-    raise StandardError("no idl_output_filename specified")
+    raise Exception("no idl_output_filename specified")
 
   _GenerateIDLFile(idl_template_filename, idl_output_filename)
   sys.exit()

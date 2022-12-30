@@ -27,7 +27,7 @@ import codecs
 import os
 import sys
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 class Bundle:
   """Represents the information for a bundle"""
@@ -52,7 +52,7 @@ def UrlEncodeString(name):
     The utf8 converted urlencoded string.
   """
   utf8_str = name.encode('utf8')
-  return urllib.quote(utf8_str)
+  return urllib.parse.quote(utf8_str)
 
 def ReadLinesFromFile(txt_filename):
   """Read all lines from a file encoded as utf8 or utf16.
@@ -92,7 +92,7 @@ def ReadBundleInstallerFile(installers_txt_filename):
       bundle = Bundle(exe_name, needs_admin, language,
                       browser, usage,
                       installers_txt_filename, bundle_apps)
-      if (not bundles.has_key(language)):
+      if (language not in bundles):
         bundles[language] = [bundle]
       else:
         bundles[language] .append(bundle)
@@ -136,7 +136,7 @@ def SetOutputFileNames(file_name, apps, output_dir):
   """
 
   # Determine the language.
-  for (lang, apps_lang) in apps.iteritems():
+  for (lang, apps_lang) in apps.items():
     # Get the output filename and set it on the application.
     for app in apps_lang:
       output_path = BuildOutputDirectory(output_dir, lang, app)
@@ -199,7 +199,7 @@ def TagOneFile(file, app, applytag_exe_name):
 
   out_path = app.output_file_name
   if not os.path.exists(file):
-    print 'Could not find file %s required for creating %s' % (file, out_path)
+    print('Could not find file %s required for creating %s' % (file, out_path))
     return False
 
   arguments = [applytag_exe_name,
@@ -208,7 +208,7 @@ def TagOneFile(file, app, applytag_exe_name):
                tag_string,
                'append'
               ]
-  print 'Building %s with tag %s' % (output_path, tag_string)
+  print('Building %s with tag %s' % (output_path, tag_string))
   os.spawnv(os.P_WAIT, applytag_exe_name, arguments)
   return True
 
@@ -246,15 +246,15 @@ def TagBinary(apps, file, applytag_exe_name):
       TagOneFile(file, app, applytag_exe_name)
 
 def PrintUsage():
-  print ''
-  print 'Tool to stamp the Guid, Application name, needs admin into the'
-  print 'meta-installer.'
-  print 'Reads <installer file> which contains the application name,'
-  print 'guid, needs_admin and stamps the meta-installer <file> with'
-  print 'these values.'
-  print 'For an example of the <installer file> take a look at'
-  print '#/installers/googlegears_installer.txt'
-  print ''
+  print('')
+  print('Tool to stamp the Guid, Application name, needs admin into the')
+  print('meta-installer.')
+  print('Reads <installer file> which contains the application name,')
+  print('guid, needs_admin and stamps the meta-installer <file> with')
+  print('these values.')
+  print('For an example of the <installer file> take a look at')
+  print('#/installers/googlegears_installer.txt')
+  print('')
   print ('tag_meta_installers.py <applytag> <input file> <installer file>'
         '<output file>')
 
@@ -269,17 +269,17 @@ def main():
   output_dir = sys.argv[4]
 
   if not os.path.exists(apply_tag_exe):
-    print "Could not find applytag.exe"
+    print("Could not find applytag.exe")
     PrintUsage()
     return
 
   if not os.path.exists(file_name):
-    print "Invalid filename %s" % file_name
+    print("Invalid filename %s" % file_name)
     PrintUsage()
     return
 
   if not os.path.exists(input_file):
-    print "Invalid directory %s" % input_file
+    print("Invalid directory %s" % input_file)
     PrintUsage()
     return
 

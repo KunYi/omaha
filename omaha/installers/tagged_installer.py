@@ -53,10 +53,10 @@ def _ReadAllBundleInstallerFiles(installers_txt_files_path):
     # Read in the installer file.
     read_bundles = tag_meta_installers.ReadBundleInstallerFile(installer_file)
 
-    for (key, bundle_list) in read_bundles.items():
+    for (key, bundle_list) in list(read_bundles.items()):
       if not bundle_list or not key:
         continue
-      if not bundles.has_key(key):
+      if key not in bundles:
         bundles[key] = bundle_list
       else:
         new_bundles_list = bundles[key] + bundle_list
@@ -74,7 +74,7 @@ def CreateTaggedInstallers(env, installers_txt_files_path, product_name,
   untagged_binary = '%s%sSetup.exe' % (prefix, product_name)
 
   tag_meta_installers.SetOutputFileNames(untagged_binary, bundles, '')
-  for bundles_lang in bundles.itervalues():
+  for bundles_lang in bundles.values():
     for bundle in bundles_lang:
       TagOneBundle(
           env=env,

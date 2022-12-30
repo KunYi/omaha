@@ -248,7 +248,7 @@ class OmahaVersionInfo(object):
   def _ReadFile(self, version_file):
     """Reads and stores data from a VERSION file."""
 
-    execfile(version_file, globals())
+    exec(compile(open(version_file, "rb").read(), version_file, 'exec'), globals())
 
     if version_patch > 0:
       incrementing_value = version_patch

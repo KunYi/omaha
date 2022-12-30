@@ -103,7 +103,7 @@ def SignedBinaryGenerator(source, target, env, for_signature):
   # Alway copy and make writable.
   commands = [
       SCons.Script.Copy('$TARGET', '$SOURCE'),
-      SCons.Script.Chmod('$TARGET', 0755),
+      SCons.Script.Chmod('$TARGET', 0o755),
   ]
 
   # Only do signing if there is a certificate file or certificate name.
@@ -142,7 +142,7 @@ def DualSignedBinaryGenerator(source, target, env, for_signature):
   # Alway copy and make writable.
   commands = [
       SCons.Script.Copy('$TARGET', '$SOURCE'),
-      SCons.Script.Chmod('$TARGET', 0755),
+      SCons.Script.Chmod('$TARGET', 0o755),
   ]
 
   # Only do signing if there are certificate files or a certificate name. The

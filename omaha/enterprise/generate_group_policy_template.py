@@ -20,7 +20,7 @@ The resulting strings and files use CRLF as required by gpedit.msc.
 To unit test this module, just run the file from the command line.
 """
 
-from __future__ import print_function
+
 
 import codecs
 import filecmp
@@ -574,9 +574,9 @@ def GenerateGroupPolicyTemplate(apps):
                         .replace('^', '')
                         .replace('*', '')
                         .replace('+', '')
-                        .replace(u'\u00a9', '')   # Copyright (C).
-                        .replace(u'\u00ae', '')   # Registered Trademark (R).
-                        .replace(u'\u2122', ''))  # Trademark (TM).
+                        .replace('\u00a9', '')   # Copyright (C).
+                        .replace('\u00ae', '')   # Registered Trademark (R).
+                        .replace('\u2122', ''))  # Trademark (TM).
 
     # pylint: enable-msg=C6004
 
@@ -682,7 +682,7 @@ if __name__ == '__main__':
        'Disclaimer',
        True,
        True),
-      (u'Google User Test Foo\u00a9\u00ae\u2122',
+      ('Google User Test Foo\u00a9\u00ae\u2122',
        '{104844D6-7DDA-460b-89F0-FBF8AFDD0A67}',
        ' Check http://www.google.com/user_test_foo/.',
        '',

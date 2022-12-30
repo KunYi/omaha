@@ -28,7 +28,7 @@ try:
   from urllib.parse import unquote as url_unquote
 except ImportError:
   # py2
-  from urllib import unquote as url_unquote
+  from urllib.parse import unquote as url_unquote
 
 TEST_PREFIXES = ('TEST_', 'TEST2_')
 

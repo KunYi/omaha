@@ -341,7 +341,7 @@ def BuildOfflineInstaller(
         installers_txt_path)
 
     bundles = {}
-    for (key, bundle_list) in app_bundles.items():
+    for (key, bundle_list) in list(app_bundles.items()):
       if not bundle_list or not key:
         continue
       if not key in bundles:
@@ -351,7 +351,7 @@ def BuildOfflineInstaller(
         bundles[key] = new_bundles_list
 
     tag_meta_installers.SetOutputFileNames(target_name, bundles, '')
-    for bundles_lang in bundles.itervalues():
+    for bundles_lang in bundles.values():
       for bundle in bundles_lang:
         results += tagged_installer.TagOneBundle(
             env=env,

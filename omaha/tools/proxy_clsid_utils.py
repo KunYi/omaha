@@ -128,7 +128,7 @@ def _GetProxyClsidsFromFile(target_proxy_clsid):
   f.close()
 
   if not proxy_clsid:
-    raise StandardError("Failed to get auto-generated proxy CLSID")
+    raise Exception("Failed to get auto-generated proxy CLSID")
 
   return proxy_clsid
 

@@ -325,7 +325,7 @@ def _MidlEmitter(target, source, env):
     return not (str(x).endswith('_p.c') or str(x).endswith('_data.c'))
 
   (t, source) = SCons.Tool.midl.midl_emitter(target, source, env)
-  return (filter(IsNonProxyGeneratedFile, t), source)
+  return (list(filter(IsNonProxyGeneratedFile, t)), source)
 
 
 def IsCoverageBuild(env):
